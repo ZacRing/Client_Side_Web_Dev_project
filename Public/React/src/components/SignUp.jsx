@@ -1,5 +1,8 @@
 import { useState } from 'react';
 
+const MIN_USERNAME_LENGTH = 3;
+const MIN_PASSWORD_LENGTH = 8;
+
 export default function SignUp({ goTo }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -10,6 +13,16 @@ export default function SignUp({ goTo }) {
 
     if (username === '' || password === '') {
       setMessage('Please fill in both fields.');
+      return;
+    }
+
+    if (username.length < MIN_USERNAME_LENGTH) {
+      setMessage('Username must be at least ' + MIN_USERNAME_LENGTH + ' characters.');
+      return;
+    }
+
+    if (password.length < MIN_PASSWORD_LENGTH) {
+      setMessage('Password must be at least ' + MIN_PASSWORD_LENGTH + ' characters.');
       return;
     }
 

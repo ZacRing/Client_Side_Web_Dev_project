@@ -3,6 +3,7 @@ import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import Quiz from './components/Quiz';
 import Results from './components/Results';
+import QuizRules from './components/QuizRules';
 
 export default function App() {
   const [screen, setScreen] = useState('signup');
@@ -37,24 +38,34 @@ export default function App() {
     setScreen('signin');
   }
 
+  const showRules = screen === 'signup' || screen === 'signin';
+
   return (
-    <main className="container py-5 app">
-      <header className="text-center mb-4">
+    <>
+      <header className="site_header text-center">
         <h1>Traffic Sign Quiz</h1>
-        {currentUser && <p>Signed in as {currentUser}</p>}
+        {currentUser && <p className="mb-0">Signed in as {currentUser}</p>}
       </header>
 
-      {screen === 'signup' && <SignUp goTo={setScreen} />}
-      {screen === 'signin' && <SignIn goTo={setScreen} setCurrentUser={setCurrentUser} />}
-      {screen === 'quiz' && <Quiz finishQuiz={finishQuiz} />}
-      {screen === 'results' && (
-        <Results
-          goTo={setScreen}
-          quizResult={quizResult}
-          currentUser={currentUser}
-          signOut={signOut}
-        />
-      )}
-    </main>
+      <main className={showRules ? 'container app flex-grow-1 w-100 welcome_layout' : 'container app flex-grow-1 w-100'}>
+        {showRules && <QuizRules />}
+
+        {screen === 'signup' && <SignUp goTo={setScreen} />}
+        {screen === 'signin' && <SignIn goTo={setScreen} setCurrentUser={setCurrentUser} />}
+        {screen === 'quiz' && <Quiz finishQuiz={finishQuiz} />}
+        {screen === 'results' && (
+          <Results
+            goTo={setScreen}
+            quizResult={quizResult}
+            currentUser={currentUser}
+            signOut={signOut}
+          />
+        )}
+      </main>
+
+      <footer className="site_footer text-center">
+        Road sign images from Department of Transport on Wikimedia. 
+      </footer>
+    </>
   );
 }

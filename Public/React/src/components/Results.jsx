@@ -9,7 +9,7 @@ export default function Results({ goTo, quizResult, currentUser, signOut }) {
   const totalQuestions = quizResult.questions.length;
   const passed = score >= PASS_MARK;
 
-  // Build a list of the questions the user got wrong or didn't answer
+  // Build a list of the questions the user got wrong or didnt answer
   const wrongAnswers = [];
   quizResult.questions.forEach((item, index) => {
     const userAnswer = quizResult.answers[index];
@@ -23,7 +23,7 @@ export default function Results({ goTo, quizResult, currentUser, signOut }) {
     }
   });
 
-  // Load this user's past attempts from localStorage
+  // Load this users past attempts from localStorage
   const users = JSON.parse(localStorage.getItem('users')) || [];
   const user = users.find((savedUser) => savedUser.username === currentUser);
   const attempts = user ? user.attempts : [];
